@@ -52,13 +52,13 @@ Future<String> fetchWeather({int nx = 67, int ny = 101}) async {
   final items = body['response']?['body']?['items']?['item'];
   if (items == null) throw Exception('응답 포맷 오류');
 
-  String _value(Map m) => (m['fcstValue'] ?? '').toString();
+  String value(Map m) => (m['fcstValue'] ?? '').toString();
 
   final skyItem = items.firstWhere((i) => i['category'] == 'SKY', orElse: () => null);
   final ptyItem = items.firstWhere((i) => i['category'] == 'PTY', orElse: () => null);
 
-  final sky = skyItem != null ? _value(skyItem) : '?';
-  final pty = ptyItem != null ? _value(ptyItem) : '?';
+  final sky = skyItem != null ? value(skyItem) : '?';
+  final pty = ptyItem != null ? value(ptyItem) : '?';
 
   return '$sky-$pty';
 }
